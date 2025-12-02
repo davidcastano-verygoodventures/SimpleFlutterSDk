@@ -13,11 +13,23 @@ let package = Package(
         ),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "SimpleFlutterSDk"
+        // Binary targets: your prebuilt frameworks
+        .binaryTarget(
+            name: "Flutter",
+            path: "Flutter.xcframework"
         ),
-
+        .binaryTarget(
+            name: "App",
+            path: "App.xcframework"
+        ),
+        // Wrapper target: nice Swift API that uses Flutter + App
+        .target(
+            name: "SimpleFlutterSDk",
+            dependencies: [
+                "Flutter",
+                "App"
+            ],
+            path: "Sources/SimpleFlutterSDk"
+        )
     ]
 )
